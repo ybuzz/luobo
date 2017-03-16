@@ -1,0 +1,138 @@
+/* 公司信息页面 */
+.container {
+  max-width: 1250px;
+}
+body {
+  background: #f6f7f8;
+}
+/* 公司tt */
+.m-companyinfott {
+  background: #fff;
+  margin-top: 20px;
+}
+.m-companyinfott .img-wrap {
+  height: 200px;
+  border: 1px solid #e8e8e8;
+  background: #fff;
+}
+.m-companyinfott-info h1 {
+  display: inline-block;
+  padding-right: 10px;
+  font-size: 20px;
+}
+.m-companyinfott-info small {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 14px;
+  background: #fc2b47;
+  border-radius: 15px;
+  color: #fff;
+}
+.m-companyinfott-info p {
+  padding: 10px 0;
+}
+/* 公司详细信息 */
+.m-companyinfo-wrap {
+  padding: 15px;
+  margin-top: 20px;
+  background: #fff;
+}
+.m-companyinfo-wrap h3 {
+  padding-left: 5px;
+  font-weight: bold;
+}
+/* 公司信息切换 */
+.m-companyinfo-switch h2 {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+  padding: 0 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.m-companyinfo-switch h2.active {
+  font-weight: bold;
+  border-bottom: 3px solid #fc2b47;
+}
+.m-companyinfo-brief.active,
+.m-companyinfo-job.active {
+  display: none;
+}
+/* 公司介绍 */
+/* 侧边红边框 */
+.redborder {
+  border-left: 5px solid #fc2b47;
+}
+.m-companyinfo-brief-bd .img-wrap {
+  position: relative;
+  height: 200px;
+  border: 1px solid #e8e8e8;
+  background: #fff;
+}
+/* 公司在招职位 */
+.m-companyinfo-job-list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #f4f4f4;
+}
+.m-companyinfo-job-list li:hover {
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+}
+.m-companyinfo-job-list h4,
+.m-companyinfo-job-list strong,
+.m-companyinfo-job-list span {
+  padding: 5px;
+  display: inline-block;
+}
+.m-companyinfo-job-list h4 {
+  margin: 0;
+  min-width: 211px;
+}
+.m-companyinfo-job-list strong {
+  color: #fc2b47;
+}
+.m-companyinfo-job-list span {
+  color: #8a98a7;
+}
+/* 公司信息侧边栏 */
+.m-companyinfo-Side {
+  padding-left: 40px;
+  border-left: 3px solid #f4f4f4;
+}
+.m-companyinfo-Side-info {
+  padding: 20px 0 20px 20px;
+}
+.m-companyinfo-Side-info li {
+  padding: 10px;
+}
+.m-companyinfo-Side-info p {
+  display: inline-block;
+}
+.m-companyinfo-Side-label {
+  padding: 20px 0 20px 20px;
+}
+.m-companyinfo-Side-label li {
+  float: left;
+  margin: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 25px;
+}
+/*重置breadcumb的样式*/
+.breadcrumb {
+  display: inline-block;
+  padding: 0;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-radius: 0;
+}
+.breadcrumb li {
+  padding-left: 0;
+  padding-right: 0;
+}

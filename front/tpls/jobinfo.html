@@ -1,0 +1,68 @@
+<!-- 职位详情页面 -->
+<div class="container">
+    <div class="row">
+        <div class="m-jobinfo-wrap clearfix">
+            <!-- 职位详细信息 -->
+            <div class="m-jobinfo-info col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="m-jobinfo-info-tt">
+                    <h1>{{ vm.jobMinute.name }}</h1>
+                    <small>{{ vm.jobMinute.companyName }}</small>
+                    <ul class="tt-wages">
+                        <li> {{ vm.jobMinute.compensation|changeJobListName:'compensationtype' }} </li>
+                        <li><i class="icon-jobinfo icon-location-jobdescripe"></i> {{ vm.jobMinute.province|changeProName }}</li>
+                        <li><i class="icon-jobinfo icon-description-2"> </i> {{ vm.jobMinute.education|changeJobListName:'educationtype' }}</li>
+                        <li><i class="icon-jobinfo icon-description-1"></i> {{ vm.jobMinute.experience|changeJobListName:'experiencetype' }} </li>
+                    </ul>
+                    <ul class="tt-label">
+                        <li ng-repeat="item in vm.jobMinute.companyTags">{{ item.companyTag }}</li>
+                    </ul>
+                    <span class="tt-time">{{ vm.jobMinute.updateAt|date:'yyyy-MM-dd' }}</span>
+                </div>
+                <div class="m-jobinfo-info-ct">
+                    <h2>职位描述</h2>
+                    <h3>岗位职责:</h3>
+                    <p>{{ vm.jobMinute.responsibility }}</p>
+                    <h3>必要条件:</h3>
+                    <p>任职资格：</p>
+                    <p>{{ vm.jobMinute.requisite }}</p>
+                    <h3>公司福利：</h3>
+                    <dl>
+                        <dd>{{ vm.jobMinute.boon }}</dd>
+                    </dl>
+                </div>
+                <div class="m-jobinfo-info-ft">
+                    <div class="ft-share">
+                        <span><i class="icon-jobinfo icon-sharing"></i> 分享</span>
+                        <a href=""><i class="icon-jobshare icon-jobwechat"></i></a>
+                        <a href=""><i class="icon-jobshare icon-jobqq"></i></a>
+                        <a href=""><i class="icon-jobshare icon-jobmicro-blog"></i></a>
+                    </div>
+                    <div class="ft-btn">
+                        <button modal-use type="button" class="btn btn-danger">我感兴趣</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 职位侧边栏 -->
+            <div class="m-jobinfo-side col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="img-wrap">
+                    <img ng-src="{{ vm.jobMinute.logo }}" alt="">
+                    <h2>{{ vm.jobMinute.companyName }}</h2>
+                </div>
+                <div class="info">
+                    <h3>基本信息</h3>
+                    <ul>
+                        <li><i class="icon-jobinfo icon-company-home-3"></i> {{ vm.jobMinute.totalNum }}人</li>
+                        <li>
+                            <i class="icon-jobinfo icon-people"></i>
+                            <ul class="breadcrumb">
+                                <li ng-repeat="item in vm.jobMinute.industryList">{{ item.industry|changeJobListName:'industrytype' }}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

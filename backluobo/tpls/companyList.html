@@ -1,0 +1,98 @@
+<div class="container-fluid m-companylist-wrap">
+    <div class="panel panel-default clearfix">
+        <form action="" class="form-inline">
+            <div class="row f-rowfix">
+                <div class="form-group col-md-4 col-xs-12">
+                    <label>公司名称：</label>
+                    <input data-set ng-model="vm.companyData.name" type="text" class="form-control" id="companyName">
+                </div>
+                <div class="form-group col-md-4 col-xs-12">
+                    <label>公司行业：</label>
+                    <select data-set class="form-control" ng-model="vm.companyData.industry" ng-options="items.type as items.name for items in vm.joblisttype.industrytype">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4 col-xs-12">
+                    <label for="">产品名称：</label>
+                    <input data-set ng-model="vm.companyData.product" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="row f-rowfix">
+                <div class="form-group col-md-4">
+                    <label for="">认证状态：</label>
+                    <select data-set ng-model="vm.companyData.approved" class="form-control" ng-options="items.type as items.name for items in vm.joblisttype.approvedtype">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">冻结状态：</label>
+                    <select data-set ng-model="vm.companyData.freezed" class="form-control" ng-options="items.type as items.name for items in vm.joblisttype.freezedtype">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">融资规模：</label>
+                    <select data-set ng-model="vm.companyData.financing" class="form-control" ng-options="items.type as items.name for items in vm.joblisttype.financingtype">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row f-rowfix">
+                <div class="form-group m-companylist_city col-md-12 clearfix">
+                    <label for="">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</label>
+                    <citychoose search="search"  province-num='vm.companyData.province' city-num='vm.companyData.city' county-num='vm.companyData.county'></citychoose>
+                </div>
+            </div>
+            <div class="m-companylist_btngroup">
+                <button class="btn btn-small btn-warning" type="button" ng-click="vm.clear()">清空</button>
+                <button class="btn btn-small btn-success" type="button" ng-click="vm.pagingdata()">搜索</button>
+            </div>
+        </form>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            公司列表
+            <button ng-show="modelright.create" class="btn btn-xs btn-primary pull-right" ui-sref="field.companyEdit">新增</button>
+        </div>
+        <div class="panel-body m-companylist-text">
+            <table class="table table-striped f-table_border">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>公司名称</th>
+                        <th>公司行业</th>
+                        <th>地区</th>
+                        <th>融资规模</th>
+                        <th>认证状态</th>
+                        <th>冻结状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="items in vm.companyListData">
+                        <td>{{ $index+1 }}</td>
+                        <td>{{ items.name }}</td>
+                        <td><span ng-repeat="item in items.industryList">{{ item|changeJobListName:'industrytype' }}</span></td>
+                        <td>{{ items.province|provinceFilter }}-{{ items.city|cityFilter }}-{{ items.county|countyFilter }}</td>
+                        <td>{{ items.financing|changeJobListName:'financingtype' }}</td>
+                        <td>{{ items.approved|changeJobListName:'approvedtype' }}</td>
+                        <td>{{ items.freezed|changeJobListName:'freezedtype' }}</td>
+                        <td>
+                            <a class="btn btn-sm"></a>
+                            <a class="btn btn-sm" ui-sref="field.positionList({companyName:items.name,id:items.id})">职位</a>
+                            <a use-modal ctr-fn="vm.modalRestult()" ctrclick="vm.getType(this,1,'认证后该公司将被标记为推荐公司。','是否执行认证操作？')" ng-if="items.approved ===0" class="btn btn-sm">认证</a>
+                            <a use-modal ctr-fn="vm.modalRestult()" ctrclick="vm.getType(this,1,'解除认证后该公司将不再标记为推荐公司。','是否执行解除操作？')" ng-if="items.approved !==0" class="btn btn-sm">解除</a>
+                            <a ng-show="modelright.update" class="btn btn-sm" ui-sref="field.companyEdit({id:items.id})">编辑</a>
+                            <a use-modal ctr-fn="vm.modalRestult()" ctrclick="vm.getType(this,0,'冻结后该公司下的所有信息将不可用。','是否执行冻结操作？')" ng-if="items.freezed===0" class="btn btn-sm">冻结</a>
+                            <a use-modal ctr-fn="vm.modalRestult()" ctrclick="vm.getType(this,0,'解冻后该公司下的信息将可继续使用。','是否执行解冻操作？')" ng-if="items.freezed!==0" class="btn btn-sm">解冻</a>
+                            <a ng-show="modelright.delete" use-modal ctr-fn="vm.modalRestult()" ctrclick="vm.deleteCompany(this)" class="btn btn-sm">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <mypagintion total="vm.totalItems"></mypagintion>
+            </div>
+        </div>
+    </div>
+</div>

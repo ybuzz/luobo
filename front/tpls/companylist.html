@@ -1,0 +1,109 @@
+<!-- 职位列表页 -->
+
+<div class="container">
+    <!--条件筛选列表-->
+    <!--头部-->
+    <div class="row m-search-title clearfix">
+        <p class="m-search-title-item active">公司</p>
+        <p class="m-search-title-item " ui-sref="app.searchjob">职业</p>
+    </div>
+    <!--选项-->
+    <!--公司筛选-->
+    <div class="row m-search-panel conmpany clearfix">
+        <form class="form-horizontal">
+            <div class="form-group row">
+                <label for="name" class="control-label col-md-1">关&nbsp;键&nbsp;字&nbsp;&nbsp;:</label>
+                <input ng-model="vm.name" class="col-md-6 form-control" type="text" name="name" id="name" placeholder="请输入公司名字，如：联想">
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">所在地区：</label>
+                <ul class="col-md-11">
+                    <li search-job multiselect="true"  slectarry="vm.provinceTypeArry"  ng-class="{'active':(items.type|searchPanelChooseFilter:vm.provinceTypeArry)}" ng-repeat="items in vm.searchOption.province"  ng-click="gettype(this)">{{ items.name }}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">所属行业：</label>
+                <ul class="col-md-11">
+                    <li search-job multiselect='true' slectarry="vm.industryTypeArry" ng-class="{'active':(items.type|searchPanelChooseFilter:vm.industryTypeArry)}" ng-repeat="items in vm.searchOption.industry" ng-click="gettype(this)">{{ items.name }}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">融资规模：</label>
+                <ul class="col-md-11">
+                    <li search-job multiselect='true' slectarry="vm.financingTypeArry" ng-class="{'active':(items.type|searchPanelChooseFilter:vm.financingTypeArry)}" ng-repeat="items in vm.searchOption.financing" ng-click="gettype(this)">{{ items.name }}</li>
+                </ul>
+            </div>
+            <ul class="pull-right">
+                <li ng-click="vm.clearList()">清空</li>
+                <li class='active' ng-click="vm.pagingdata(1)" >搜索</li>
+            </ul>
+            <!--<div class="form-group">-->
+                <!--<label class="control-label col-md-1" for="">学历要求：</label>-->
+                <!--<ul class="col-md-11">-->
+                    <!--<li ng-repeat="items in vm.searchOption.education" ng-click="vm.test()">{{ items.name }}</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        </form>
+    </div>
+
+    <div class="row">
+        <!-- 搜索为空的时候 -->
+
+        <!-- 公司列表 -->
+        <div class="m-companylist clearfix">
+            <!-- 搜索为空的页面 -->
+            <div ng-show="vm.nodata">
+                <div class="m-nodata clearfix">
+                    <div class="img-wrap col-xs-12  col-sm-4 col-md-3 col-sm-offset-1 col-md-offset-3">
+                        <img src="img/404.png" alt="">
+                    </div>
+                    <div class="m-nodata-info col-xs-12 col-sm-4 col-md-3">
+                        <strong>暂时没有符合搜索条件的内容</strong>
+                        <p>请重新修改搜索条件后再次搜索</p>
+                    </div>
+                </div>
+                <!-- 推荐职位 -->
+                <div class="m-rmjob clearfix">
+                    <h3 >推荐职位</h3>
+                    <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="item in vm.newprofessionList" ui-sref="app.jobinfo({id:item.id})">
+                        <div class="m-rmjob-wrap">
+                            <div class="img-wrap pull-left">
+                                <img ng-src="{{ item.logo }}" alt="">
+                            </div>
+                            <div class="m-rmjob-info">
+                                <span>{{ item.compensation|changeJobListName:'compensationtype' }}</span>
+                                <p>{{ item.name }}</p>
+                                <h5>{{ item.companyName }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in vm.joblistdata" ui-sref="app.companyinfo({id:item.id})">
+                <!-- 此处和找职位，职业推荐tab共用样式 -->
+                <div class="m-rmjob-wrap">
+                    <div class="img-wrap pull-left">
+                        <img ng-src="{{ item.logo }}" alt="">
+                    </div>
+                    <div class="m-rmjob-info">
+                        <h5>{{ item.name }}</h5>
+                        <span>{{ item.slogan }}</span>
+                        <p><strong>{{ item.professionNum }}</strong>个在招职位</p>
+
+                    </div>
+                    <ul class="m-companyicon">
+                        <li>
+                            <i class="icon-companylist icon-location-company"></i>
+                            <ul class="breadcrumb">
+                                <li ng-repeat="items in item.industryList">{{ items|changeJobListName:'industrytype' }}</li>
+                            </ul>
+                        </li>
+                        <li><i class="icon-companylist icon-phone-url"></i>{{ item.financing|changeJobListName:'financingtype' }}</li>
+                        <li><i class="icon-companylist icon-shangshi"></i> {{ item.province|provinceFilter }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <mypagintion total='vm.totalItems'></mypagintion>
+    </div>
+</div>

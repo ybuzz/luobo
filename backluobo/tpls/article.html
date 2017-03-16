@@ -1,0 +1,88 @@
+<!-- article管理页面 -->
+ <div class="panel panel-default">
+     <form>
+         <div class="panel-body m-article">
+             <div class="col-md-4">
+                 <div class="input-group">
+                     <span class="input-group-addon ui-bs" >发布时间</span>
+                     <datepicker data ="vm.startdata" class="pull-left" ></datepicker>
+                 </div>
+             </div>
+             <!--<div style="float: left; line-height: 30px;font-size: xx-large;">-</div>-->
+             <div class="col-md-4">
+                 <div class="input-group">
+                     <span class="input-group-addon ui-bs" >截至时间</span>
+                     <datepicker class="pull-left" ng-model="vm.startdata" data = 'vm.enddata'></datepicker>
+                 </div>
+             </div>
+             <div class="col-md-4">
+                 <div class="input-group">
+                     <span class="input-group-addon"  >类型{{vm.arcitle.type}}</span>
+                     <select class="form-control" ng-model="vm.arcitle.type">
+                         <option value="">全部</option>
+                         <option value="0">首页Banner</option>
+                         <option value="1">找职位Banner</option>
+                         <option value="2">找精英Banner</option>
+                         <option value="3">行业大图</option>
+                     </select>
+                 </div>
+             </div>
+             <div class="col-md-3">
+                 <div class="input-group">
+                     <span class="input-group-addon">状态{{vm.arcitle.status}}</span>
+                     <select class="form-control" ng-model="vm.arcitle.status">
+                         <option value="">全部</option>
+                         <option value="2">上线</option>
+                         <option value="1">草稿</option>
+                     </select>
+                 </div>
+             </div>
+             <div class="col-md-3 col-md-offset-6">
+                 <button type="button" class="btn btn-danger" ng-click="vm.clean()">清空</button>
+                 <button type="button" class="btn btn-success" ng-click="vm.search()">搜索</button>
+             </div>
+         </div>
+     </form>
+ </div>
+<!-- article列表 -->
+<div class="panel panel-default">
+    <div class="panel-heading">Article列表
+        <button ng-show="modelright.create" type="button" class="btn btn-xs btn-success pull-right" ui-sref="field.articleadd">+新增</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>类型</th>
+                <th>发布时间</th>
+                <th>修改时间</th>
+                <th>发布者</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            <tr ng-repeat="data in vm.arcitledata">
+                <td>{{data.id}}</td>
+                <td>{{data.title}}</td>
+                <td>{{data.type|articleFilter:'type'}}</td>
+                <td>{{data.createAt| date:'yyyy-MM-dd HH:mm:m'}}</td>
+                <td>{{data.updateAt| date:'yyyy-MM-dd HH:mm:m'}}</td>
+                <td>{{data.author}}</td>
+                <td>{{data.status|articleFilter:'status'}}</td>
+                <td>
+                    <my-modeal-box >
+                        <my-modeal ng-model="articlemodel.html" ng-model2="articlemodel2.html"  operation= "vm.stastus" tipstext='status'
+                        tipsinfo="vm.stastusinfo(this)"><a class="btn " ng-click="open()">{{data.status == 2 ? '下线' : '上线'}}</a></my-modeal>
+                    </my-modeal-box>
+                    <a ng-show="modelright.update" class="btn" ng-click="vm.edit(this)">编辑</a>
+                    <my-modeal-box ng-show="modelright.delete">
+                        <my-modeal ng-model="articlemodel.html" ng-model2="articlemodel2.html" operation= "vm.delete" tipstext='delete'
+                               tipsinfo="vm.deleteinfo(this)"><a class="btn" ng-click="open()"> 删除</a>
+                        </my-modeal>
+                    </my-modeal-box>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<mypagintion total='vm.totalItems'></mypagintion>

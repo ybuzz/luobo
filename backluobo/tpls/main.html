@@ -1,0 +1,46 @@
+<!-- 主页 -->
+<div class="container-fluid">
+    <div class="row">
+        <header class="m-hd">
+            <nav class="navbar navbar-default ">
+                <div class="navbar-header pull-left">
+                    <a class="navbar-brand" href="#">萝卜多后台管理系统</a>
+                </div>
+                <p class="icon-login navbar-text pull-right glyphicon glyphicon-off" ng-class="{'down':vm.logindata.status}" ng-click="vm.outlogin()"></p>
+                <p class="navbar-text pull-right">{{vm.logindata.manager}}</p>
+                <p class="navbar-text pull-right">{{vm.logindata.role}}</p>
+            </nav>
+        </header>
+        <!-- 导航 -->
+        <nav class="col-md-2 m-nav">
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default"  is-open="status.open2"  >
+                    <uib-accordion-heading>
+                        {{roleAllRightdata[2].name}}
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open2, 'glyphicon-chevron-right': !status.open2}"></i>
+                    </uib-accordion-heading>
+                    <p ui-sref="{{data.url}}" ng-repeat="data in roleAllRightdata[2].nodes">{{data.name}}</p>
+                </div>
+                <div uib-accordion-group class="panel-default"  is-open="status.open1"  >
+                    <uib-accordion-heading>
+                        {{roleAllRightdata[1].name}}
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open1, 'glyphicon-chevron-right': !status.open1}"></i>
+                    </uib-accordion-heading>
+                    <p ui-sref="{{data.url}}" ng-repeat="data in roleAllRightdata[1].nodes">{{data.name}}</p>
+                </div>
+                <div uib-accordion-group class="panel-default"  is-open="status.open">
+                    <uib-accordion-heading>
+                        {{roleAllRightdata[0].name}}
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </uib-accordion-heading>
+                    <p ui-sref="{{data.url}}" ng-repeat="data in roleAllRightdata[0].nodes">{{data.name}}</p>
+                </div>
+            </uib-accordion>
+        </nav>
+        <!-- 表单 -->
+        <main  class="m-bd col-md-10" ui-view>
+            <h1>欢迎登陆萝卜多后台管理系统！</h1>
+        </main>
+    </div>
+</div>
+

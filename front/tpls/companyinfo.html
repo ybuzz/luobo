@@ -1,0 +1,76 @@
+<!-- 公司详情页面 -->
+
+<!-- 公司标题 -->
+<div class="container">
+    <div class="row">
+        <div class="m-companyinfott clearfix">
+            <div class="img-wrap col-xs-12 col-sm-4 col-md-3">
+                <img class="f-abscenter" ng-src="{{ vm.companyData.company.logo }}" alt="">
+            </div>
+            <div class="m-companyinfott-info col-xs-12 col-sm-8 col-md-9">
+                <h1>{{ vm.companyData.company.name }} </h1>
+                <small>萝卜多认证</small>
+                <p>{{ vm.companyData.company.slogan }}</p>
+                <p ng-repeat="item in  vm.companyData.productList">{{ item.name }}</p>
+            </div>
+        </div>
+        <!-- 公司详细信息 -->
+        <div class="m-companyinfo-wrap clearfix">
+            <!-- 信息切换 -->
+            <div class="m-companyinfo-switch">
+                <h2 ng-class="{true:'active',false:''}[vm.isActive]" ng-click='vm.isActiveT()'>公司详情</h2>
+                <h2 ng-class="{true:'',false:'active'}[vm.isActive]" ng-click='vm.isActiveF()'>在招职位</h2>
+            </div>
+            <!-- 公司介绍 -->
+            <div  ng-class="{true:'',false:'active'}[vm.isActive]" class="m-companyinfo-brief  col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                <div ng-if="vm.companyData.productList.length>0">
+                    <h3 class="redborder"> 公司产品</h3>
+                    <div class="m-companyinfo-brief-bd clearfix" ng-repeat="item in vm.companyData.productList">
+                        <div class="img-wrap  col-xs-12 col-sm-4 col-md-3">
+                            <img class="f-abscenter" ng-src="{{ item.logo }}" alt="">
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-9">
+                            <strong>{{ item.name }}</strong>
+                            <p>{{ item.summary }}</p>
+                            <p>{{ item.slogan }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="redborder">公司介绍</h3>
+                    <p>{{ vm.companyData.company.summary }}</p>
+                </div>
+            </div>
+            <!-- 公司在找职位列表 -->
+            <div ng-class="{true:'active',false:''}[vm.isActive]" class="m-companyinfo-job  col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                <h3 class="redborder">在招职位{{ vm.jobNum }}个</h3>
+                <ul class="m-companyinfo-job-list">
+                    <li ng-repeat="item in vm.jobData" ui-sref="app.jobinfo({id:item.id})">
+                        <h4>{{ item.name }}</h4>
+                        <strong>{{ item.compensation|changeJobListName:'compensationtype' }}</strong>
+                        <span>{{ item.experience|changeJobListName:'experiencetype' }}/{{ item.education|changeJobListName:'educationtype'  }}</span>
+                        <span>{{ item.updateAt|date : "yyyy-MM-dd hh:mm:ss" }}发布</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- 公司信息侧栏 -->
+            <div class="m-companyinfo-Side col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                <h4>公司信息</h4>
+                <ul class="m-companyinfo-Side-info">
+                    <li>人数：{{ vm.companyData.company.totalNum }}人</li>
+                    <li>
+                        <p>行业：</p>
+                        <ul class="breadcrumb">
+                            <li ng-repeat="item2 in vm.companyData.industryList">{{ item2.industry|changeJobListName:'industrytype'}}</li>
+                        </ul>
+                    </li>
+                    <li>城市：{{ vm.companyData.company.city|changeProName }}</li>
+                </ul>
+                <h4 ng-if="vm.companyData.tagList.length>0">公司标签</h4>
+                <ul class="m-companyinfo-Side-label">
+                    <li ng-repeat="item in vm.companyData.tagList">{{ item.tag }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

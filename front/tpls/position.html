@@ -1,0 +1,157 @@
+<div class="container">
+    <div class="row">
+        <!-- 导航栏 -->
+        <div class="m-jobnav-wrap col-md-3 col-lg-3">
+            <div class="m-jobnav" ng-mouseenter	="vm.navactive=true" ng-mouseleave ="vm.navactive =false">
+                <ul class="m-jobnav-list" ng-class="{'active':vm.navactive}">
+                    <h4 class="navtt">
+                        <i class="icon-jobnav icon-zzz-chanpin" ng-class="{'zzz-active':vm.navactive}"></i>用户体验
+                        <i class="icon-jobnav icon-findjobdayu pull-right" ng-class="{'zzz-active':vm.navactive}"></i>
+                    </h4>
+                    <li ng-repeat="items in vm.userFellType" ui-sref="app.searchjob({type:items.type})">{{ items.name }}</li>
+                </ul>
+                <div class="m-jobsnav clearfix">
+                    <div ng-repeat="items in vm.userFellType">
+                        <span>{{ items.name }}</span>
+                        <ol class="breadcrumb">
+                            <li  ng-repeat="item in items.data" ui-sref="app.searchjob({type:items.type,subtype:item.type})">{{ item.name }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="m-jobnav" ng-mouseenter	="vm.navactive2=true" ng-mouseleave ="vm.navactive2=false">
+                <ul class="m-jobnav-list" ng-class="{'active':vm.navactive2}">
+                    <h4 class="navtt">
+                        <i class="icon-jobnav icon-zzz-jishu" ng-class="{'zzz-active':vm.navactive2}"></i>研发
+                        <i class="icon-jobnav icon-findjobdayu pull-right" ng-class="{'zzz-active':vm.navactive2}"></i>
+                    </h4>
+                    <li ng-repeat="items in vm.developType" ui-sref="app.searchjob({type:items.type})">{{ items.name }}</li>
+                </ul>
+                <div class="m-jobsnav jobsnav2">
+                    <div ng-repeat="items in vm.developType">
+                        <span>{{ items.name }}</span>
+                        <ol class="breadcrumb">
+                            <li  ng-repeat="item in items.data" ui-sref="app.searchjob({type:items.type,subtype:item.type})">{{ item.name }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="m-jobnav" ng-mouseenter	="vm.navactive3=true" ng-mouseleave ="vm.navactive3=false">
+                <ul class="m-jobnav-list" ng-class="{'active':vm.navactive3}">
+                    <h4 class="navtt">
+                        <i class="icon-jobnav icon-zzw-sheji" ng-class="{'zzz-active':vm.navactive3}"></i>大数据
+                        <i class="icon-jobnav icon-findjobdayu pull-right" ng-class="{'zzz-active':vm.navactive3}"></i>
+                    </h4>
+                    <li ng-repeat="items in vm.bigdataType" ui-sref="app.searchjob({type:items.type})">{{ items.name }}</li>
+                </ul>
+                <div class="m-jobsnav jobsnav3">
+                    <div ng-repeat="items in vm.bigdataType">
+                        <span>{{ items.name }}</span>
+                        <ol class="breadcrumb">
+                            <li  ng-repeat="item in items.data" ui-sref="app.searchjob({type:items.type,subtype:item.type})">{{ item.name }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 焦点图轮播图 -->
+        <div class="m-jobfocus col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <!-- 搜索 -->
+            <div class="input-group m-seach">
+                <span class="input-group-addon m-seach-itps">公司名称</span>
+                <input type="text" class="form-control" placeholder="请输入公司名称" aria-describedby="basic-addon2" ng-model="vm.name">
+                <span class="input-group-addon m-seach-btn" ui-sref='app.companylist({name:vm.name})'>搜索</span>
+            </div>
+            <!-- 轮播 -->
+            <jobfocus1></jobfocus1>
+    </div>
+    <!-- 推荐职位 -->
+    <div class="m-jobtt clearfix">
+        <h3 class="pull-left " ng-class="{true:'',false:'noactive'}[vm.isActive1]"  ng-click="vm.changeActive1T()" >推荐职位</h3>
+        <h3 class="pull-left" ng-class="{true:'noactive',false:''}[vm.isActive1]"  ng-click="vm.changeActive1F()" >最新职位</h3>
+        <a class="pull-right" ui-sref="app.joblist({new:vm.isActive1})">查看更多&gt;</a>
+    </div>
+    <div class="m-rmjob clearfix">
+        <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="item in vm.newprofessionList" ui-sref="app.jobinfo({id:item.id})">
+            <div class="m-rmjob-wrap">
+                <div class="img-wrap pull-left">
+                    <img ng-src="{{ item.logo }}" alt="">
+                </div>
+                <div class="m-rmjob-info">
+                    <span>{{ item.compensation|changeJobListName:'compensationtype' }}</span>
+                    <p>{{ item.name }}</p>
+                    <h5>{{ item.companyName }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 推荐公司 -->
+    <div class="m-jobtt clearfix">
+        <h3 class="pull-left">推荐公司</h3>
+        <a class="pull-right" href="#/companylist">查看更多&gt;</a>
+    </div>
+    <div class="m-rmcompany clearfix">
+        <div class="col-xs-12 col-sm-5 col-md-4">
+            <div class="m-rmcompany-rigth">
+                <div class="img-wrap" style="width: 100%;height: 100%;">
+                    <img src="img/job/gstab.jpg" alt="">
+                </div>
+                <div class="m-rmcompany-info">
+                    <h5>北京葡萄藤信息技术有限公司</h5>
+                    <p>携程在手 说走就走</p>
+                    <ul class="m-companyicon">
+                        <li><i class="icon-rmcompany icon-location-white"></i>移动互联网</li>
+                        <li><i class="icon-rmcompany icon-phone-url-white"></i>上市</li>
+                        <li><i class="icon-rmcompany icon-shangshi-white"></i>北京</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-md-8">
+            <div class="m-rmcompany-left">
+                <div class="col-xs-6 col-sm-6 col-md-3" ng-repeat="items in vm.approvedCompanyList1" ui-sref="app.companyinfo({id:items.id})">
+                    <div class="img-wrap">
+                        <img ng-src="{{ items.logo }}" alt="logo图">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 推荐公司轮播 -->
+        <div jobfocus2 class="col-xs-12"></div>
+    </div>
+    <!-- 找职业位图 -->
+    <div class="m-jobbitmap clearfix">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="img-wrap">
+                <img src="img/job/zjy-1fengxian.png" alt="">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="m-jobbitmap-info">
+                <h4>无成本，零风险</h4>
+                <p>无任何隐含费用全程免费</p>
+                <p>人才从投递到成功入职不需要任何费用，通过测试 后还可免费提供从业建议，不浪费每一分天赋。</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="m-jobbitmap-info">
+                <p>1-3天发送首个聘请通知</p>
+                <p>甄选职位 深度匹配  发送聘请通知</p>
+                <p>3-5天安排候选人面试</p>
+                <p>安排面试 协助客户快速入职</p>
+                <p>平均15天推荐成功 </p>
+                <p>多方洽谈 售后服务</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="img-wrap">
+                <img src="img/job/zjy-youxuan2.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- 底部article -->
+    <div class="m-jobarticle">
+        <img src="img/job/job-bottom-img.png" alt="">
+    </div>
+</div>
+</div>
